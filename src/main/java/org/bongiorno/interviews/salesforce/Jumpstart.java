@@ -44,8 +44,17 @@ public class Jumpstart {
      * @param args not used
      */
     public static void main(String[] args) throws Exception {
-        InputStream in = new FileInputStream("src/main/resources/commands.dat");
-        InputStream later = Jumpstart.class.getResourceAsStream("commands.dat");
+
+        InputStream in = null;
+        try {
+            if (args.length > 0 && args[0] != null)
+                in = new FileInputStream(args[0]);
+        } catch (FileNotFoundException e) {
+            in = Jumpstart.class.getResourceAsStream("/commands.dat");
+        }
+        if(in == null)
+            throw new IllegalArgumentException("no input file found");
+
         Jumpstart parser = new Jumpstart(in, System.out);
         parser.process();
     }

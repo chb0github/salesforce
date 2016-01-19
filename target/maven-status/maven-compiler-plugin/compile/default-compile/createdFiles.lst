@@ -1,7 +1,0 @@
-org/bongiorno/interviews/salesforce/commands/RemoveCommand.class
-org/bongiorno/interviews/salesforce/commands/InstallCommand.class
-org/bongiorno/interviews/salesforce/commands/Command.class
-org/bongiorno/interviews/salesforce/commands/DependCommand.class
-org/bongiorno/interviews/salesforce/commands/ListCommand.class
-org/bongiorno/interviews/salesforce/dependency/Module.class
-org/bongiorno/interviews/salesforce/Jumpstart.class

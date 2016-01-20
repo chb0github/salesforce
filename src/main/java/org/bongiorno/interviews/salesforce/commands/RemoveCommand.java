@@ -2,10 +2,9 @@ package org.bongiorno.interviews.salesforce.commands;
 
 import org.bongiorno.interviews.salesforce.dependency.Module;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.stream.Collectors.toSet;
 
 
 /**
@@ -26,12 +25,15 @@ public class RemoveCommand implements Command {
 
     private Map<String, Object> uninstall(Module parent) {
         Map<String, Object> result = new HashMap<>();
-        if(!parent.hasDependents()) {
+        Set<Module> installedDependents = parent.getDependents().stream().filter(Module::isInstalled).collect(toSet());
+        if(installedDependents.isEmpty()) {
             result.put(parent.getName(),"successfully removed");
             parent.setInstalled(false);
 
             for (Module dependency : parent.getDependencies()) {
-                result.putAll(uninstall(dependency));
+                if(dependency.isInstalled()) {
+                    result.putAll(uninstall(dependency));
+                }
             }
         }
         else {
